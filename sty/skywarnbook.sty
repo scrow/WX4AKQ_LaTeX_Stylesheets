@@ -1,0 +1,214 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% skywarnbook.sty       NWS Wakefield SKYWARN Amateur Radio Support Team
+%                       Steve Crow, 24-Jan-2014
+% 
+% This is the standard stylesheet for SKYWARN training manuals and other
+% lengthy reference materials.  It features a standard title and license
+% page, several different page geometry options, and fancy headers.
+% 
+% Project homepage:
+% http://github.com/wx4akq/texcls-skywarnbook
+% 
+% Here is a sample document:
+% 
+% \documentclass[pdflatex,letterpaper,twoside,12pt]{book}
+% 
+% \title             {Sample Document}
+% \author            {John Doe}
+% \date              {24-Jan-2014}
+% \newcommand\docver {Version 1.0}
+% 
+% \usepackage{skywarnbook}
+% \skywarnFormat{printing}
+% \disableAutoNumbering
+% \useColorLinks
+% 
+% \begin{document}
+% \skywarnTitlePage
+% \skipToTOC
+% \skywarnTOC
+% 
+% \chapter{Chapter One}
+% \section{Section One}
+% Sample text.
+% \end{document}
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Miscellaneous Packages
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{url}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{moreverb}
+\usepackage{upquote}
+\usepackage{extsizes}
+\usepackage{parskip}
+\usepackage{float}
+\usepackage{everypage}
+\usepackage{ifthen}
+\usepackage[letterpaper]{geometry}
+\usepackage{ragged2e}
+
+
+\hyphenation{SKYWARN}
+\hyphenation{EMCOMM}
+
+%\RaggedRight
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- provide page geometry and header options -------------------------
+\newcommand{\skywarnFormat}[1]{
+  \ifthenelse{\equal{#1}{printing}}{
+    \newgeometry{inner=3cm,outer=3cm,top=2cm,bottom=2cm,bindingoffset=0cm}
+    \pagestyle{fancy}
+    % 
+    % Define fancy headers
+    \fancyhf{}
+    \fancyhead[R]{\leftmark}
+    \fancyhead[R]{\nouppercase\rightmark}
+    \fancyfoot[R]{\thepage}
+    \fancyfoot[L]{\emph{\inserttitle}}
+
+    \fancyheadoffset{0cm}
+    \setlength{\headheight}{17pt}
+
+    \renewcommand{\footrulewidth}{0.4pt}
+    \renewcommand{\headrulewidth}{0.4pt}
+    % 
+    % Display fancy footers on chapter pages
+    \fancypagestyle{plain}{%
+	\fancyhf{}\fancyfoot[R]{\thepage}%
+	\renewcommand{\headrulewidth}{0pt}}
+  }{}
+  \ifthenelse{\equal{#1}{binding}}{
+    \newgeometry{inner=1.5cm,outer=1.5cm,top=2cm,bottom=2cm,bindingoffset=1cm}
+    \pagestyle{fancy}
+    % 
+    % Define fancy headers
+    \fancyhf{}
+    \fancyhead[RE]{\leftmark}
+    \fancyhead[LO]{\nouppercase\rightmark}
+    \fancyfoot[LO,RE]{\thepage}
+    \fancyheadoffset{0cm}
+    \setlength{\headheight}{17pt}
+    % 
+    % Display fancy footers on chapter pages
+    \fancypagestyle{plain}{%
+	\fancyhf{}\fancyfoot[R]{\thepage}%
+	\renewcommand{\headrulewidth}{0pt}}
+  }{}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OPTIONAL Watermarking
+\newcommand{\printWatermark}[1]{
+  \usepackage[]{draftwatermark}
+  \SetWatermarkText  {#1}
+  \SetWatermarkScale {4}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OPTIONAL Disable Numbering command
+\newcommand{\disableAutoNumbering}{
+  % OPTIONAL disable numbering of sections
+  \setcounter{secnumdepth}{0}
+
+  % OPTIONAL set custom chapter titles
+  \titleformat{\chapter}{\Large\bfseries}{}{0pt}{\huge}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% OPTIONAL do not display chapter number in header
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OPTIONAL configure hyperlinks
+\newcommand{\useColorLinks}{
+  \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,pdfstartpage=1,final}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- More Fancy Headers! ----------------------------------------------
+% Enable fancy headers
+\pagestyle{fancy}
+
+% Create custom page style with no headers or footers
+% To use this completely blank page, issue \clearpage\thispagestyle{blank}\clearpage
+\fancypagestyle{blank}{%
+	\fancyhf{}\fancyfoot[R]{}\fancyhead[R]{}\fancyfoot[L]{}\fancyhead[L]{}\renewcommand{\headrulewidth}{0pt}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- a few shortcuts --------------------------------------------------
+% Create an \inserttitle macro to insert the \title
+\makeatletter
+\let\inserttitle\@title
+\makeatother
+% 
+% Create an \insertAuthor macro to insert the document \author
+\makeatletter
+\let\insertauthor\@author
+\makeatother
+% 
+% Create an \insertdate macro to insert the document \date
+\makeatletter
+\let\insertdate\@date
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- Title & License Page ---------------------------------------------
+\newcommand{\skywarnTitlePage}{
+  \begin{titlepage}
+  \newgeometry{left=3cm,bottom=2cm,top=2cm,right=3cm,bindingoffset=0cm}
+  \fancypagestyle{plain}
+
+  \noindent\includegraphics[width=0.5\textwidth]{wx4akq-logo}\\[1in]
+
+  {\Large \bfseries{{\inserttitle\\[0.25in]}}}
+  {\large \insertauthor\\[0.25in]}
+  {\large NWS Wakefield SKYWARN}\\
+  {\large Amateur Radio Support Team\\}
+  {\large http://www.wx4akq.org\\}
+
+  \rule{\textwidth}{0.4pt}
+  {\small \docver\\}
+  {\small \insertdate}
+
+  \begin{figure}[b]
+  \rule{\textwidth}{0.4pt}
+  This work is licensed under the Creative Commons Attribution-Noncommercial-\\Share Alike 3.0 United States
+License. To view a copy of this license, visit \\\url{http://creativecommons.org/licenses/by-nc-sa/3.0/us/} or send a letter
+to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
+  \end{figure}
+
+  \restoregeometry
+  \end{titlepage}
+}
+
+\newcommand{\skipToTOC}{
+  \clearpage
+  \thispagestyle{blank}
+  \clearpage
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- TOC --------------------------------------------------------------
+\newcommand{\skywarnTOC}{
+  \setcounter{tocdepth}{3}
+  \tableofcontents
+  \clearpage
+}
