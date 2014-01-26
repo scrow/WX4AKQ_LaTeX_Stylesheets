@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % skywarnbook.sty       NWS Wakefield SKYWARN Amateur Radio Support Team
-% version 1.0           Steve Crow, 24-Jan-2014
+% version 1.1           Steve Crow, 26-Jan-2014
 % 
 % 
 % This is the standard stylesheet for SKYWARN training manuals and other
@@ -9,6 +9,9 @@
 % 
 % Project homepage:
 % http://github.com/wx4akq/texcls-skywarnbook
+% 
+% version 1.0  24-Jan-2014  Initial release
+% version 1.1  26-Jan-2014  Adds skywarncolor definition and tcolorboxes
 % 
 % Here is a sample document:
 % 
@@ -53,12 +56,27 @@
 \usepackage{ifthen}
 \usepackage[letterpaper]{geometry}
 \usepackage{ragged2e}
+\usepackage[many]{tcolorbox}
+\usepackage{xcolor}
 
 
 \hyphenation{SKYWARN}
 \hyphenation{EMCOMM}
 
-%\RaggedRight
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- Define our team color --------------------------------------------
+\definecolor{skywarnorange}{rgb}{0.925,0.525,0.184}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- Easy orange boxes ------------------------------------------------
+\newcommand{\orangebox}[2]{
+  \begin{tcolorbox}[enhanced,colback=skywarnorange!25!white,colframe=skywarnorange,title={#1},drop fuzzy shadow]
+    % optional parameters: watermark color=white,watermark text=Fit
+    {#2}
+\end{tcolorbox}
+} % end newcommand \orangebox
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --- provide page geometry and header options -------------------------
@@ -85,6 +103,7 @@
 	\fancyhf{}\fancyfoot[R]{\thepage}%
 	\renewcommand{\headrulewidth}{0pt}}
   }{}
+
   \ifthenelse{\equal{#1}{binding}}{
     \newgeometry{inner=1.5cm,outer=1.5cm,top=2cm,bottom=2cm,bindingoffset=1cm}
     \pagestyle{fancy}
@@ -128,7 +147,6 @@
 
 % OPTIONAL do not display chapter number in header
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % OPTIONAL configure hyperlinks
