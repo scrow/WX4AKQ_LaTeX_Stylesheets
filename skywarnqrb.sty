@@ -130,13 +130,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --- Set up page styles -----------------------------------------------
+\newcommand{\removelinebreaks}[1]{%
+  \begingroup\def\\{ }#1\endgroup}
+
 \fancypagestyle{qrbtitle}{
 \fancyhf{}
 \fancyfootoffset{0.5cm}
 \fancyhead{}
 \renewcommand\headrulewidth{0.0pt}
 \renewcommand\footrulewidth{0.2pt}
-\fancyfoot[L]{\inserttitle}
+\fancyfoot[L]{\removelinebreaks{\inserttitle}}
 \fancyfoot[R]{\thepage}
 }
 
