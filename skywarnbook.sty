@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % skywarnbook.sty       NWS Wakefield SKYWARN Amateur Radio Support Team
-% version 1.1           Steve Crow, 26-Jan-2014
+% version 1.2           Steve Crow, 31-Jan-2014
 % 
 % 
 % This is the standard stylesheet for SKYWARN training manuals and other
@@ -12,6 +12,7 @@
 % 
 % version 1.0  24-Jan-2014  Initial release
 % version 1.1  26-Jan-2014  Adds skywarncolor definition and tcolorboxes
+% version 1.2  31-Jan-2014  Remove line feeds from title in footer
 % 
 % Here is a sample document:
 % 
@@ -79,6 +80,11 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- remove line breaks from text (footer)--- -------------------------
+\newcommand{\removelinebreaks}[1]{%
+  \begingroup\def\\{ }#1\endgroup}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % --- provide page geometry and header options -------------------------
 \newcommand{\skywarnFormat}[1]{
   \ifthenelse{\equal{#1}{printing}}{
@@ -90,7 +96,7 @@
     \fancyhead[R]{\leftmark}
     \fancyhead[R]{\nouppercase\rightmark}
     \fancyfoot[R]{\thepage}
-    \fancyfoot[L]{\emph{\inserttitle}}
+    \fancyfoot[L]{\removelinebreaks{\emph{\inserttitle}}}
 
     \fancyheadoffset{0cm}
     \setlength{\headheight}{17pt}
