@@ -1,0 +1,8 @@
+.DS_Store
+*.aux
+*.log
+*.out
+*.pdf
+*.synctex.gz
+*.toc
+!wx4akq_logo.pdf
